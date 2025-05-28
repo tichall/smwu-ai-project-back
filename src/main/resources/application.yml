@@ -1,0 +1,29 @@
+spring:
+  data:
+    mongodb:
+      host: ${MONGO_HOST} # localhost
+      port: 27017
+      database: ${MONGO_DATABASE_NAME}  # smwu-db
+      username: ${MONGO_USERNAME} # userSy
+      password: ${MONGO_PASSWORD} # frog0817md
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: ${KAKAO_CLIENT_ID}
+            redirect-uri: ${KAKAO_REDIRECT_URI} # http://localhost:8080/login/oauth2/code/kakao
+            authorization-grant-type: authorization_code # ???
+        provider: # ???
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize?prompt=login
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id # ?? ?? ???
+jwt:
+  secret:
+    key: ${JWT_SECRET_KEY}
+
+logging:
+  level:
+    org.springframework.data.mongodb.core.MongoTemplate: DEBUG

@@ -1,0 +1,19 @@
+version: '3.1'
+
+services:
+  mongo:
+    image: mongo # 최신 버전의 MongoDB 이미지 사용
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: frog0817md
+    ports:
+      - "27017:27017" # host의 27017 포트를 컨테이너의 27017 포트에 연결
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
+
+db.createUser(
+
+)
