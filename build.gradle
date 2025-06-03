@@ -44,6 +44,10 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
+bootJar {
+	archiveFileName = 'finmate.jar'
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
