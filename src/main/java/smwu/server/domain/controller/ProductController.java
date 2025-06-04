@@ -4,14 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import smwu.server.domain.dto.FinancialProductResponseDto;
 import smwu.server.domain.dto.OpenAiResponseDto;
 import smwu.server.domain.dto.UserInputRequestDto;
 import smwu.server.domain.service.ProductService;
 import smwu.server.global.response.BasicResponse;
 import smwu.server.global.security.UserDetailsImpl;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor

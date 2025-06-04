@@ -1,6 +1,5 @@
 package smwu.server.domain.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import smwu.server.domain.dto.FinancialProductResponseDto;
@@ -8,9 +7,7 @@ import smwu.server.domain.entity.FinancialProduct;
 import smwu.server.domain.entity.UserRecommendation;
 import smwu.server.domain.repository.FinancialProductRepository;
 import smwu.server.domain.repository.UserRecommendationRepository;
-import smwu.server.global.cosmosDb.CosmosDbService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
