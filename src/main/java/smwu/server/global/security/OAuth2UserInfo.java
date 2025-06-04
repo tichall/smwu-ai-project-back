@@ -10,6 +10,7 @@ import smwu.server.global.exception.CustomException;
 import smwu.server.global.exception.errorCode.AuthErrorCode;
 
 import java.util.Map;
+import java.util.UUID;
 
 @Getter
 @Builder
@@ -49,6 +50,7 @@ public class OAuth2UserInfo {
 
     public User toEntity() {
         return User.builder()
+                .id(UUID.randomUUID().toString())
                 .email(email)
                 .name(name)
                 .oAuthProvider(OAuthProvider.fromString(registrationId))

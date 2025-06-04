@@ -1,14 +1,12 @@
 package smwu.server.domain.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.azure.spring.data.cosmos.core.mapping.Container;
+import com.azure.spring.data.cosmos.core.mapping.PartitionKey;
+import lombok.*;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import smwu.server.domain.enums.OAuthProvider;
 
-@Document(collection = "users")
+@Container(containerName = "users")
 @Getter
 @Builder
 @NoArgsConstructor
@@ -17,6 +15,7 @@ public class User {
     @Id
     private String id;
 
+    @PartitionKey
     private String email;
     private String password;
     private String name;
