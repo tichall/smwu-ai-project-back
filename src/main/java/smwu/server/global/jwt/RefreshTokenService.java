@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.UUID;
 
 import static smwu.server.global.jwt.JwtProvider.BEARER_PREFIX;
 
@@ -17,6 +18,7 @@ public class RefreshTokenService {
         refreshTokenRepository.deleteByEmail(email);
 
         RefreshToken refreshToken = RefreshToken.builder()
+                .id(UUID.randomUUID().toString())
                 .email(email)
                 .token(parsedRefreshToken)
                 .createdAt(Instant.now())

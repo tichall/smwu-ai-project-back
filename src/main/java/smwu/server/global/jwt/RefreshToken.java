@@ -1,23 +1,29 @@
 package smwu.server.global.jwt;
 
+import com.azure.spring.data.cosmos.core.mapping.Container;
+import com.azure.spring.data.cosmos.core.mapping.PartitionKey;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
 
-@Document(collection = "refresh_tokens")
+@Container(containerName = "refresh_tokens")
 @Getter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class RefreshToken {
     @Id
     String id;
+
+    @PartitionKey
     private String email;
     private String token;
 
-    // index를 사용할 필드 명시
-    @Indexed(expireAfter = "PT168H")
     private Instant createdAt;
 }

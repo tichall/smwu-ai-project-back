@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.5.0'
+	id 'org.springframework.boot' version '3.1.5'
 	id 'io.spring.dependency-management' version '1.1.7'
 }
 
@@ -24,6 +24,10 @@ repositories {
 }
 
 dependencies {
+	// Azure Cosmos DB
+//	implementation 'com.azure:azure-spring-data-cosmos:3.46.0'
+	implementation 'com.azure.spring:spring-cloud-azure-starter-data-cosmos:5.6.0'
+
 	// OAuth 로그인 테스트를 위한 Thymeleaf 의존성
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
