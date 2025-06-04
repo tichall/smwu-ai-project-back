@@ -9,6 +9,10 @@ import java.time.OffsetDateTime;
 import java.util.List;
 
 @Container(containerName = "user_recommendations")
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserRecommendation {
     @Id
     private String id;

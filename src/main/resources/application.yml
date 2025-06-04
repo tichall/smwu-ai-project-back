@@ -23,9 +23,14 @@ spring:
         endpoint: ${COSMOS_URI}
         key: ${COSMOS_KEY}
         database: ${COSMOS_DATABASE}
+        container: ${PRODUCT_CONTAINER_NAME}
 jwt:
   secret:
     key: ${JWT_SECRET_KEY}
+
+openai:
+  endpoint: ${MODEL_ENDPOINT}
+  apiKey: ${MODEL_API_KEY}
 
 logging:
   level:

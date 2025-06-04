@@ -16,6 +16,7 @@ import java.util.Map;
 public class FinancialProductResponseDto {
 
     private String id;
+    private boolean liked;
     private String productName;
     private List<String> productType;
     private String category;
@@ -60,26 +61,30 @@ public class FinancialProductResponseDto {
         private List<String> preferentialConditions;
     }
 
-    public FinancialProductResponseDto toDto(FinancialProduct product) {
+    public static FinancialProductResponseDto of(FinancialProduct product, boolean liked) {
+        FinancialProduct.SubscriptionConditions sub = product.getSubscriptionConditions();
+        FinancialProduct.InterestInfo interest = product.getInterestInfo();
+
         return FinancialProductResponseDto.builder()
                 .id(product.getId())
+                .liked(liked)
                 .productName(product.getProductName())
                 .productType(product.getProductType())
                 .category(product.getCategory())
                 .eligibilityTarget(product.getEligibilityTarget())
 
                 .subscriptionConditions(
-                        FinancialProductResponseDto.SubscriptionConditionsDto.builder()
-                                .subscriptionAmount(product.getSubscriptionConditions().getSubscriptionAmount())
-                                .contractPeriod(product.getSubscriptionConditions().getContractPeriod())
+                        sub == null ? null : SubscriptionConditionsDto.builder()
+                                .subscriptionAmount(sub.getSubscriptionAmount())
+                                .contractPeriod(sub.getContractPeriod())
                                 .build()
                 )
 
                 .interestInfo(
-                        FinancialProductResponseDto.InterestInfoDto.builder()
-                                .baseRate(product.getInterestInfo().getBaseRate())
-                                .preferentialRate(product.getInterestInfo().getPreferentialRate())
-                                .preferentialConditions(product.getInterestInfo().getPreferentialConditions())
+                        interest == null ? null : InterestInfoDto.builder()
+                                .baseRate(interest.getBaseRate())
+                                .preferentialRate(interest.getPreferentialRate())
+                                .preferentialConditions(interest.getPreferentialConditions())
                                 .build()
                 )
 
@@ -101,5 +106,4 @@ public class FinancialProductResponseDto {
 
                 .build();
     }
-
 }
