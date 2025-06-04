@@ -30,7 +30,8 @@ public class JwtProvider {
     public static final String BEARER_PREFIX = "Bearer ";
 
     // 액세스 토큰 만료시간 (30분)
-    public static final long ACCESS_TOKEN_TIME = 30 * 60 * 1000L;
+//    public static final long ACCESS_TOKEN_TIME = 30 * 60 * 1000L;
+    public static final long ACCESS_TOKEN_TIME = 7 * 24 * 60 * 60 * 1000L;
 
     // 리프레시 토큰 만료시간 (7일)
     public static final long REFRESH_TOKEN_TIME = 7 * 24 * 60 * 60 * 1000L;
