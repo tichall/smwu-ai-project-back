@@ -28,6 +28,8 @@ public class UserRecommendation {
     @Getter @NoArgsConstructor @AllArgsConstructor @Builder
     public static class RecommendedItem {
         private String productId;
+
+        @Setter
         private boolean liked;
     }
 }

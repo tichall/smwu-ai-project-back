@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface UserRecommendationRepository extends CosmosRepository<UserRecommendation, String> {
     List<UserRecommendation> findByUserIdOrderByRecommendedAtDesc(String userId);
+    List<UserRecommendation> findByUserId(String userId);
 }

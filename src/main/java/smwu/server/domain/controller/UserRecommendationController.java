@@ -3,10 +3,9 @@ package smwu.server.domain.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import smwu.server.domain.dto.FinancialProductResponseDto;
+import smwu.server.domain.dto.ToggleLikeResponseDto;
 import smwu.server.domain.service.UserRecommendationService;
 import smwu.server.global.response.BasicResponse;
 import smwu.server.global.security.UserDetailsImpl;
@@ -26,4 +25,15 @@ public class UserRecommendationController {
         return ResponseEntity.ok()
                 .body(BasicResponse.of("추천 상품 조회 완료", responseDtoList));
     }
+
+    @PostMapping("/{productId}/toggle-like")
+    public ResponseEntity<BasicResponse<ToggleLikeResponseDto>> toggleLike(
+            @AuthenticationPrincipal UserDetailsImpl userDetails,
+            @PathVariable String productId
+    ) {
+        ToggleLikeResponseDto responseDto = recommendationService.toggleLike(userDetails.getUser().getId(), productId);
+        return ResponseEntity.ok()
+                .body(BasicResponse.of("상품 찜하기 완료", responseDto));
+    }
+
 }
