@@ -64,22 +64,27 @@ public class UserRecommendationService {
     }
 
     public ToggleLikeResponseDto toggleLike(String userId, String productId) {
-        Optional<UserRecommendation> latest = recommendationRepository
-                .findByUserIdOrderByRecommendedAtDesc(userId).stream().findFirst();
+        List<UserRecommendation> allRecommendations = recommendationRepository
+                .findByUserIdOrderByRecommendedAtDesc(userId);
 
-        if (latest.isEmpty()) {
+        if (allRecommendations.isEmpty()) {
             throw new IllegalArgumentException("추천 이력이 존재하지 않습니다.");
         }
 
-        UserRecommendation recommendation = latest.get();
-        for (UserRecommendation.RecommendedItem item : recommendation.getRecommendedProducts()) {
-            if (item.getProductId().equals(productId)) {
-                boolean newLiked = !item.isLiked();
-                item.setLiked(newLiked);
-                recommendationRepository.save(recommendation);
-                return new ToggleLikeResponseDto(productId, newLiked);
+        // 각 추천 이력 내의 추천 상품 탐색
+        for (UserRecommendation recommendation : allRecommendations) {
+            for (UserRecommendation.RecommendedItem item : recommendation.getRecommendedProducts()) {
+                if (item.getProductId() != null && item.getProductId().trim().equals(productId.trim())) {
+                    // 찜 상태 토글
+                    boolean newLiked = !item.isLiked();
+                    item.setLiked(newLiked);
+                    recommendationRepository.save(recommendation);
+
+                    return new ToggleLikeResponseDto(productId, newLiked);
+                }
             }
         }
+
         throw new IllegalArgumentException("해당 상품은 최근 추천 목록에 존재하지 않습니다.");
     }
 }
