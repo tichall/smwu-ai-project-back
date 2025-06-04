@@ -8,6 +8,7 @@ import smwu.server.domain.entity.UserRecommendation;
 import smwu.server.domain.repository.FinancialProductRepository;
 import smwu.server.domain.repository.UserRecommendationRepository;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -31,11 +32,22 @@ public class UserRecommendationService {
                         (existing, replacement) -> existing // 충돌 시 기존값 유지
                 ));
 
+        Map<String, OffsetDateTime> productRecommendedAtMap = recommendations.stream()
+                .flatMap(rec -> rec.getRecommendedProducts().stream()
+                        .map(item -> Map.entry(item.getProductId(), rec.getRecommendedAt()))
+                )
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (existing, replacement) -> existing // 중복 시 기존 유지
+                ));
+
+
         // 해당 ID로 상품 조회
         List<FinancialProduct> products = financialProductRepository.findByIdIn(productLikeMap.keySet().stream().toList());
 
         return products.stream()
-                .map(product -> FinancialProductResponseDto.of(product, productLikeMap.getOrDefault(product.getId(), false)))
+                .map(product -> FinancialProductResponseDto.of(product, productLikeMap.getOrDefault(product.getId(), false), productRecommendedAtMap.get(product.getId())))
                 .toList();
     }
 }

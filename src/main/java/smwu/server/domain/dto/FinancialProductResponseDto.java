@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import smwu.server.domain.entity.FinancialProduct;
 
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +19,7 @@ public class FinancialProductResponseDto {
 
     private String id;
     private boolean liked;
+    private String recommendedAt;
     private String productName;
     private List<String> productType;
     private String category;
@@ -61,13 +64,18 @@ public class FinancialProductResponseDto {
         private List<String> preferentialConditions;
     }
 
-    public static FinancialProductResponseDto of(FinancialProduct product, boolean liked) {
+    public static FinancialProductResponseDto of(FinancialProduct product, boolean liked, OffsetDateTime recommendedAt) {
         FinancialProduct.SubscriptionConditions sub = product.getSubscriptionConditions();
         FinancialProduct.InterestInfo interest = product.getInterestInfo();
+
+        String formattedDate = recommendedAt != null
+                ? recommendedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+                : null;
 
         return FinancialProductResponseDto.builder()
                 .id(product.getId())
                 .liked(liked)
+                .recommendedAt(formattedDate)
                 .productName(product.getProductName())
                 .productType(product.getProductType())
                 .category(product.getCategory())
